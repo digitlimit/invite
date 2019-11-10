@@ -1,0 +1,52 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateInviteTables extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        $tableNames = config('invites.table_names');
+
+        Schema::create($tableNames['invites'], function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('inviter_id');
+            $table->integer('invite_source_id');
+            $table->string('email')->unique();
+            $table->string('name')->nullable;
+            $table->integer('reminds')->default(0);
+            $table->datetime('expires')->nullable();
+            $table->enum('status', ['pending','accepted','declined','expired'])->default('pending');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create($tableNames['invite_sources'], function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->unique();
+            $table->string('slug');
+            $table->enum('status', ['enabled','disabled'])->default('enabled');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        $tableNames = config('invite.table_names');
+        Schema::drop($tableNames['invites']);
+        Schema::drop($tableNames['invite_sources']);
+    }
+}
