@@ -1,0 +1,25 @@
+{
+    "name": "digitlimit/Invite",
+    "description": "Invite users from sources like spreadsheet file, social media, active directory",
+    "keywords": ["invite", "members", "excel", "ad", "facebook"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mbah Emeka",
+            "email": "frankemeks77@yahoo.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "~5.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Digitlimit\\Invite": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
